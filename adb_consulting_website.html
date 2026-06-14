@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ADB Consulting | Lottery & iGaming Advisory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Cinzel+Decorative:wght@400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #09111F;
+    --navy2:   #131E33;
+    --navy3:   #1B2845;
+    --gold:    #C9A84C;
+    --gold2:   #E2C47A;
+    --gold3:   #8A6B2A;
+    --offwhite:#F0EDE6;
+    --muted:   #9EA8BB;
+    --rule:    rgba(201,168,76,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--offwhite);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 4rem;
+    background: rgba(9,17,31,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-lines {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      repeating-linear-gradient(0deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 80px),
+      repeating-linear-gradient(90deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 80px);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.6rem, 5vw, 4.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--offwhite);
+    max-width: 800px;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title span {
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 560px;
+    font-weight: 300;
+    margin-bottom: 2.8rem;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.25s, color 0.25s;
+  }
+  .hero-cta:hover {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  /* SCROLLING MARKET TICKER */
+  .ticker-wrap {
+    margin-top: 4rem;
+    overflow: hidden;
+    border-top: 0.5px solid var(--rule);
+    border-bottom: 0.5px solid var(--rule);
+    padding: 0.65rem 0;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    width: max-content;
+    animation: tickerScroll 30s linear infinite;
+  }
+
+  .ticker-item {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold3);
+    padding: 0 2.5rem;
+    white-space: nowrap;
+  }
+
+  .ticker-item::before {
+    content: '◆';
+    margin-right: 2.5rem;
+    font-size: 0.45rem;
+    vertical-align: middle;
+    opacity: 0.6;
+  }
+
+  @keyframes tickerScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* SECTION SHARED */
+  section {
+    padding: 6rem 4rem;
+  }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: var(--offwhite);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .gold-rule {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ABOUT */
+  .about { background: var(--navy2); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    max-width: 1100px;
+  }
+
+  .about-body {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.85;
+  }
+
+  .about-body p + p { margin-top: 1rem; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    border: 0.5px solid var(--rule);
+    padding: 1.4rem;
+    background: var(--navy3);
+  }
+
+  .stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SERVICES */
+  .services { background: var(--navy); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--rule);
+    border: 0.5px solid var(--rule);
+    max-width: 1100px;
+    margin-top: 3rem;
+  }
+
+  .service-card {
+    background: var(--navy);
+    padding: 2rem 1.8rem;
+    transition: background 0.25s;
+  }
+  .service-card:hover { background: var(--navy2); }
+
+  .service-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--gold);
+    font-weight: 300;
+    font-family: 'Cinzel', serif;
+  }
+
+  .service-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    color: var(--offwhite);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .service-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* EXPERTISE MARKET BANDS */
+  .markets { background: var(--navy2); }
+
+  .market-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+    margin-top: 3rem;
+  }
+
+  .market-item {
+    border-left: 2px solid var(--gold3);
+    padding: 0.6rem 1rem;
+    background: var(--navy3);
+  }
+
+  .market-region {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold3);
+    margin-bottom: 0.2rem;
+  }
+
+  .market-country {
+    font-size: 0.88rem;
+    color: var(--offwhite);
+    font-weight: 400;
+  }
+
+  /* SELECTED ENGAGEMENTS */
+  .engagements { background: var(--navy); }
+
+  .engagement-list {
+    max-width: 860px;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .engagement-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 0.5px solid var(--rule);
+    align-items: start;
+  }
+
+  .eng-year {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    color: var(--gold3);
+    letter-spacing: 0.1em;
+    padding-top: 0.15rem;
+  }
+
+  .eng-body {}
+
+  .eng-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--offwhite);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+
+  .eng-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .eng-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold3);
+    border: 0.5px solid var(--gold3);
+    padding: 0.2rem 0.6rem;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--navy2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1100px;
+    width: 100%;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  .contact-info-block {
+    margin-bottom: 2rem;
+  }
+
+  .contact-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold3);
+    margin-bottom: 0.3rem;
+  }
+
+  .contact-value {
+    font-size: 1rem;
+    color: var(--offwhite);
+    font-weight: 400;
+  }
+  .contact-value a {
+    color: var(--offwhite);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-value a:hover { color: var(--gold); }
+
+  .contact-form-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-field label {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    background: var(--navy3);
+    border: 0.5px solid rgba(201,168,76,0.2);
+    color: var(--offwhite);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus,
+  .form-field select:focus {
+    border-color: var(--gold);
+  }
+  .form-field select option { background: var(--navy3); }
+
+  .form-submit {
+    display: inline-block;
+    padding: 0.9rem 2.4rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+    align-self: flex-start;
+  }
+  .form-submit:hover {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    border-top: 0.5px solid var(--rule);
+    padding: 2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.16em;
+    color: var(--gold3);
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">ADB Consulting</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#engagements">Engagements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-lines"></div>
+  <p class="hero-eyebrow">ADB Consulting &nbsp;·&nbsp; Est. USA &nbsp;·&nbsp; Advisory Services</p>
+  <h1 class="hero-title">
+    Regulated Gaming<br/>Advisory at the<br/><span>Highest Level</span>
+  </h1>
+  <p class="hero-sub">
+    35+ years leading lottery, iGaming, VLT, and regulated betting operations across Europe, Africa, the Middle East, and Asia — from national concession launches to product roadmaps serving millions of players.
+  </p>
+  <a href="#contact" class="hero-cta">Request a Consultation</a>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <span class="ticker-item">Greece</span>
+      <span class="ticker-item">Turkey</span>
+      <span class="ticker-item">Uganda</span>
+      <span class="ticker-item">Middle East</span>
+      <span class="ticker-item">Italy</span>
+      <span class="ticker-item">USA</span>
+      <span class="ticker-item">Brazil</span>
+      <span class="ticker-item">Bulgaria</span>
+      <span class="ticker-item">Russia</span>
+      <span class="ticker-item">Cyprus</span>
+      <span class="ticker-item">Australia</span>
+      <span class="ticker-item">Serbia</span>
+      <span class="ticker-item">Finland</span>
+      <span class="ticker-item">Ireland</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-item">Greece</span>
+      <span class="ticker-item">Turkey</span>
+      <span class="ticker-item">Uganda</span>
+      <span class="ticker-item">Middle East</span>
+      <span class="ticker-item">Italy</span>
+      <span class="ticker-item">USA</span>
+      <span class="ticker-item">Brazil</span>
+      <span class="ticker-item">Bulgaria</span>
+      <span class="ticker-item">Russia</span>
+      <span class="ticker-item">Cyprus</span>
+      <span class="ticker-item">Australia</span>
+      <span class="ticker-item">Serbia</span>
+      <span class="ticker-item">Finland</span>
+      <span class="ticker-item">Ireland</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <p class="section-eyebrow">Who We Are</p>
+  <h2 class="section-title">Deep Expertise.<br/>Proven Delivery.</h2>
+  <div class="gold-rule"></div>
+  <div class="about-grid">
+    <div class="about-body">
+      <p>ADB Consulting is a boutique US-registered advisory firm specializing in the global regulated gaming industry. Led by Anastasios (Tasos) Belesis — a senior executive with over three decades of hands-on leadership across national lottery operations, VLT product management, iGaming launch, and betting regulation — ADB brings operator-grade expertise to every mandate.</p>
+      <p>Our engagements span concession setup, omnichannel game launches, regulatory compliance, operational turnarounds, P&amp;L optimization, and go-to-market strategy. We work with operators, government bodies, technology suppliers, and investors who require structured thinking, deep domain knowledge, and dependable execution.</p>
+      <p>ADB Consulting operates across jurisdictions, advising clients in Southern Europe, East Africa, the Middle East, and beyond — combining global perspective with on-the-ground market insight.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">35+</div>
+        <div class="stat-label">Years in Regulated Gaming</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Countries Operated In</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">80+</div>
+        <div class="stat-label">VLT Titles Launched</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">National Lottery Concessions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <p class="section-eyebrow">What We Do</p>
+  <h2 class="section-title">Advisory Services</h2>
+  <div class="gold-rule"></div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">Ⅰ</div>
+      <p class="service-name">Lottery Operations & Launch</p>
+      <p class="service-desc">End-to-end setup of national and commercial lottery operations — from draw system design and retailer networks to AML frameworks, responsible gaming, and live operations management.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">Ⅱ</div>
+      <p class="service-name">VLT & Casino Product Management</p>
+      <p class="service-desc">Game roadmap ownership, supplier management (Inspired, Scientific Games, SYNOT), GLI/BMM certification, RTP/volatility configuration, progressive jackpot rollout, and KPI-driven title optimization.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">Ⅲ</div>
+      <p class="service-name">iGaming Strategy & Digital Channels</p>
+      <p class="service-desc">Online gaming market entry, digital channel growth strategy, CRM and payment integration, omnichannel launch planning, and performance-driven player journey design.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">Ⅳ</div>
+      <p class="service-name">Regulatory Compliance & Concession Advisory</p>
+      <p class="service-desc">Regulatory liaison, concession bid preparation, licensing framework navigation, government engagement, and responsible gaming policy design for new and existing regulated markets.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">Ⅴ</div>
+      <p class="service-name">Commercial & Financial Planning</p>
+      <p class="service-desc">Business case development, budgeting, cash-flow modeling, P&amp;L oversight, go-to-market financial projections, and scenario analysis for operators, investors, and government stakeholders.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">Ⅵ</div>
+      <p class="service-name">Betting & Sports Wagering Operations</p>
+      <p class="service-desc">Retail and online fixed-odds betting operations, distribution logistics, omnichannel wagering frameworks, and operational know-how transfer for new-market betting launches.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section class="markets" id="markets">
+  <p class="section-eyebrow">Geographic Reach</p>
+  <h2 class="section-title">Markets &amp; Jurisdictions</h2>
+  <div class="gold-rule"></div>
+  <div class="market-list">
+    <div class="market-item">
+      <div class="market-region">Southern Europe</div>
+      <div class="market-country">Greece &amp; Cyprus</div>
+    </div>
+    <div class="market-item">
+      <div class="market-region">Western Europe</div>
+      <div class="market-country">Italy</div>
+    </div>
+    <div class="market-item">
+      <div class="market-region">Northern Europe</div>
+      <div class="market-country">Finland &amp; Ireland</div>
+    </div>
+    <div class="market-item">
+      <div class="market-region">Eastern Europe</div>
+      <div class="market-country">Bulgaria &amp; Serbia</div>
+    </div>
+    <div class="market-item">
+      <div class="market-region">MENA</div>
+      <div class="market-country">Turkey &amp; Middle East</div>
+    </div>
+    <div class="market-item">
+      <div class="market-region">East Africa</div>
+      <div class="market-country">Uganda</div>
+    </div>
+    <div class="market-item">
+      <div class="market-region">Eastern Europe / CIS</div>
+      <div class="market-country">Russia</div>
+    </div>
+    <div class="market-item">
+      <div class="market-region">Americas</div>
+      <div class="market-country">USA &amp; Brazil</div>
+    </div>
+    <div class="market-item">
+      <div class="market-region">Pacific</div>
+      <div class="market-country">Australia</div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENTS -->
+<section class="engagements" id="engagements">
+  <p class="section-eyebrow">Track Record</p>
+  <h2 class="section-title">Selected Engagements</h2>
+  <div class="gold-rule"></div>
+  <div class="engagement-list">
+    <div class="engagement-item">
+      <div class="eng-year">2023–24</div>
+      <div class="eng-body">
+        <p class="eng-title">Uganda National Lottery — Full-Country Launch</p>
+        <p class="eng-desc">Project Lead for ITHUBA SA's end-to-end launch of the Uganda National Lottery. Oversaw regulatory liaison, government engagement, draw execution, retail &amp; digital operations, payment integration (mobile-led market), CRM, call centre, staffing, logistics, and media rollout.</p>
+        <div class="eng-tags"><span class="tag">National Lottery</span><span class="tag">Africa</span><span class="tag">Go-to-Market</span><span class="tag">Operations</span></div>
+      </div>
+    </div>
+    <div class="engagement-item">
+      <div class="eng-year">2021–22</div>
+      <div class="eng-body">
+        <p class="eng-title">Prize-Based Games Launch — Middle East</p>
+        <p class="eng-desc">Led setup of prize-based draw games in a complex regulatory environment — game design, UX/UI optimization, technical coordination, draw operations, responsible gaming, and full prize-award process management.</p>
+        <div class="eng-tags"><span class="tag">Lottery</span><span class="tag">MENA</span><span class="tag">Regulatory</span><span class="tag">Game Design</span></div>
+      </div>
+    </div>
+    <div class="engagement-item">
+      <div class="eng-year">2019–20</div>
+      <div class="eng-body">
+        <p class="eng-title">Turkey National Lottery — Sisal / Demirören JV</p>
+        <p class="eng-desc">Senior consultant for setup and management of retail and online number games under the Turkish national lottery concession, including ticketing facility setup, paper supply, distribution logistics, and digital channel growth.</p>
+        <div class="eng-tags"><span class="tag">National Lottery</span><span class="tag">Turkey</span><span class="tag">Concession</span><span class="tag">Flutter / Sisal</span></div>
+      </div>
+    </div>
+    <div class="engagement-item">
+      <div class="eng-year">2018–19</div>
+      <div class="eng-body">
+        <p class="eng-title">OPAP VLT Product Roadmap — 80+ Games</p>
+        <p class="eng-desc">Owned the VLT game roadmap across Inspired, Scientific Games, and SYNOT for Greece's national operator. Launched over 80 certified titles through structured game selection, RTP/volatility configuration, GLI/BMM certification, progressive jackpot rollout, and data-driven performance management.</p>
+        <div class="eng-tags"><span class="tag">VLT</span><span class="tag">OPAP</span><span class="tag">Game Roadmap</span><span class="tag">Greece</span></div>
+      </div>
+    </div>
+    <div class="engagement-item">
+      <div class="eng-year">2007–10</div>
+      <div class="eng-body">
+        <p class="eng-title">Russia GOSLOTO — 6,000+ POS Network Launch</p>
+        <p class="eng-desc">Supported Intralot's launch of Russia's GOSLOTO national lottery network across more than 6,000 points of sale in 11 time zones — one of the largest lottery network rollouts in CIS history.</p>
+        <div class="eng-tags"><span class="tag">National Lottery</span><span class="tag">Russia</span><span class="tag">Network Rollout</span><span class="tag">Intralot</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-eyebrow">Get In Touch</p>
+  <h2 class="section-title">Start a Conversation</h2>
+  <div class="gold-rule"></div>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-info-block">
+        <p class="contact-label">Principal Advisor</p>
+        <p class="contact-value">Anastasios (Tasos) Belesis</p>
+      </div>
+      <div class="contact-info-block">
+        <p class="contact-label">Email</p>
+        <p class="contact-value"><a href="mailto:tbelesis@gmail.com">tbelesis@gmail.com</a></p>
+      </div>
+      <div class="contact-info-block">
+        <p class="contact-label">Phone</p>
+        <p class="contact-value"><a href="tel:+306977857341">+30 6977 857 341</a></p>
+      </div>
+      <div class="contact-info-block">
+        <p class="contact-label">Registered</p>
+        <p class="contact-value">ADB Consulting, USA</p>
+      </div>
+      <div class="contact-info-block">
+        <p class="contact-label">Based</p>
+        <p class="contact-value">Athens, Greece &nbsp;|&nbsp; International</p>
+      </div>
+    </div>
+    <div class="contact-form-area">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="f-name">Full Name</label>
+          <input type="text" id="f-name" placeholder="Your name" />
+        </div>
+        <div class="form-field">
+          <label for="f-org">Organisation</label>
+          <input type="text" id="f-org" placeholder="Company / Authority" />
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="f-email">Email Address</label>
+        <input type="email" id="f-email" placeholder="your@email.com" />
+      </div>
+      <div class="form-field">
+        <label for="f-type">Area of Interest</label>
+        <select id="f-type">
+          <option value="" disabled selected>Select a service area</option>
+          <option>Lottery Operations &amp; Launch</option>
+          <option>VLT &amp; Casino Product Management</option>
+          <option>iGaming Strategy &amp; Digital Channels</option>
+          <option>Regulatory &amp; Concession Advisory</option>
+          <option>Commercial &amp; Financial Planning</option>
+          <option>Betting Operations</option>
+          <option>Other / General Inquiry</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="f-msg">Message</label>
+        <textarea id="f-msg" rows="5" placeholder="Briefly describe your project or inquiry…"></textarea>
+      </div>
+      <button class="form-submit" type="button">Send Inquiry</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">ADB Consulting</p>
+  <p class="footer-copy">&copy; 2025 ADB Consulting LLC &nbsp;·&nbsp; All rights reserved</p>
+</footer>
+
+</body>
+</html>
